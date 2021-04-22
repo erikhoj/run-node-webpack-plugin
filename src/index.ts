@@ -1,4 +1,4 @@
-import { ChildProcess, fork } from 'child_process';
+import {ChildProcess, fork, ForkOptions} from 'child_process';
 import { existsSync } from 'fs';
 import { join, normalize, parse } from 'path';
 import { Compiler, Stats } from 'webpack';
@@ -12,6 +12,7 @@ export interface RunNodeWebpackPluginOptions {
     runOnlyInWatchMode?: boolean;
     runOnlyInNormalMode?: boolean;
     ignoreErrors?: boolean;
+    forkOptions?: ForkOptions,
     nodeArgs?: string[];
 }
 
@@ -153,7 +154,7 @@ export default class RunNodeWebpackPlugin {
             if (this.scriptProcess && this.scriptProcess.connected) {
                 // if scriptProcess is running then kill it and start once again after it closes
                 Logger.info(LoggerMessages.RESTARTING + this.scriptName);
-                this.scriptProcess.on('close', () => (this.scriptProcess = fork(this.scriptPath, this.options.nodeArgs)));
+                this.scriptProcess.on('close', () => (this.scriptProcess = fork(this.scriptPath, this.options.nodeArgs, this.options.forkOptions)));
                 try {
                     this.scriptProcess.kill('SIGKILL');
                 } catch (error) {
