@@ -140,7 +140,7 @@ var RunNodeWebpackPlugin = /** @class */ (function () {
             else {
                 logger_1.Logger.info("Starting node script: " /* STARTING */ + _this.scriptName);
                 try {
-                    _this.scriptProcess = child_process_1.fork(_this.scriptPath, _this.options.nodeArgs);
+                    _this.scriptProcess = child_process_1.fork(_this.scriptPath, _this.options.nodeArgs, _this.options.forkOptions);
                 }
                 catch (error) {
                     console.error(error);

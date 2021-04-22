@@ -163,7 +163,7 @@ export default class RunNodeWebpackPlugin {
             } else {
                 Logger.info(LoggerMessages.STARTING + this.scriptName);
                 try {
-                    this.scriptProcess = fork(this.scriptPath, this.options.nodeArgs);
+                    this.scriptProcess = fork(this.scriptPath, this.options.nodeArgs, this.options.forkOptions);
                 } catch (error) {
                     console.error(error);
                 }
