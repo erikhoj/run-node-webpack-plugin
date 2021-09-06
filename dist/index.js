@@ -131,7 +131,7 @@ var RunNodeWebpackPlugin = /** @class */ (function () {
                 logger_1.Logger.info("Restarting node script: " /* RESTARTING */ + _this.scriptName);
                 _this.scriptProcess.on('close', function () { return (_this.scriptProcess = child_process_1.fork(_this.scriptPath, _this.options.nodeArgs, _this.options.forkOptions)); });
                 try {
-                    _this.scriptProcess.kill('SIGKILL');
+                    _this.scriptProcess.kill('SIGTERM');
                 }
                 catch (error) {
                     console.error(error);

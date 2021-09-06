@@ -150,13 +150,13 @@ export default class RunNodeWebpackPlugin {
                 Logger.error(LoggerMessages.NO_SCRIPT_PATH1 + outputAssetNames + LoggerMessages.NO_SCRIPT_PATH2);
                 return;
             }
-
+            
             if (this.scriptProcess && this.scriptProcess.connected) {
                 // if scriptProcess is running then kill it and start once again after it closes
                 Logger.info(LoggerMessages.RESTARTING + this.scriptName);
                 this.scriptProcess.on('close', () => (this.scriptProcess = fork(this.scriptPath, this.options.nodeArgs, this.options.forkOptions)));
                 try {
-                    this.scriptProcess.kill('SIGKILL');
+                    this.scriptProcess.kill('SIGTERM');
                 } catch (error) {
                     console.error(error);
                 }
